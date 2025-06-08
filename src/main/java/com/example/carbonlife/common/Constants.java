@@ -13,4 +13,9 @@ public interface Constants {
     String CODE_500 = "500";
 
     String userLoginState = "carbon";
+
+    /**
+     * session超时时间
+     */
+    int SESSION_TIMEOUT = 24 * 60 * 60 * 30;
 }

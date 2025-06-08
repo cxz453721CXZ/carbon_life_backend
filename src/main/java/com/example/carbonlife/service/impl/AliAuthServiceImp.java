@@ -31,6 +31,9 @@ import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.carbonlife.common.Constants.SESSION_TIMEOUT;
+import static com.example.carbonlife.common.Constants.userLoginState;
+
 /**
  * 支付宝登录
  * @author 袁腾
@@ -45,7 +48,6 @@ public class AliAuthServiceImp implements AliAuthService {
     @Resource
     private UserService userService;
 
-    private HttpSession httpSession;
 
     @Override
     @SneakyThrows
@@ -66,17 +68,20 @@ public class AliAuthServiceImp implements AliAuthService {
         //根据token获取open_id
         AlipayUserInfoShareRequest arequest = new AlipayUserInfoShareRequest();
         //返回用户对象（包含opneid，头像，昵称）
-        AlipayUserInfoShareResponse UserInfo = alipayClient.execute(arequest,  response.getAccessToken());
-        saveUser(UserInfo, requests);
+        AlipayUserInfoShareResponse UserInfo = alipayClient.execute(arequest, response.getAccessToken());
+        saveUser(UserInfo);
         System.out.println(UserInfo.getOpenId() + "------");
         System.out.println(UserInfo);
+        HttpSession session = requests.getSession();
+        session.setAttribute(userLoginState, UserInfo);
+        session.setMaxInactiveInterval(SESSION_TIMEOUT);
         return UserInfo;
     }
 
     @Override
-    public User getUserInfoBySession(String openId) {
+    public User getUserInfoBySession(String openId, HttpServletRequest request) {
         System.out.println("openId:" + openId);
-        User user = (User) httpSession.getAttribute(openId);
+        User user = (User) request.getSession().getAttribute(userLoginState);
         if(user == null) throw new ServiceException(Constants.CODE_500, "系统异常");
         return user;
     }
@@ -85,7 +90,7 @@ public class AliAuthServiceImp implements AliAuthService {
      * 存储用户信息
      * @param userInfo 支付宝用户对象
      */
-    private void saveUser(AlipayUserInfoShareResponse userInfo, HttpServletRequest requests) {
+    private void saveUser(AlipayUserInfoShareResponse userInfo) {
         //查询用户是否存在
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("open_id",userInfo.getOpenId());
@@ -99,15 +104,12 @@ public class AliAuthServiceImp implements AliAuthService {
             user.setLoginDate(getLoginDate());
             userService.save(user);
         }
-        HttpSession session = requests.getSession();
-        session.setAttribute(userInfo.getOpenId(), user);
-        this.httpSession = session;
     }
 
     /**
      * 获取用户登录时间
      */
-    private String getLoginDate(){
+    public String getLoginDate(){
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         String loginTime = sdf.format(date);

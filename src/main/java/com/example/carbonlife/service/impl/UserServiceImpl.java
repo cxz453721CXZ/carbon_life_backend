@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.carbonlife.common.Constants.SESSION_TIMEOUT;
 import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @Service
@@ -136,7 +137,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     throw new ServiceException(Constants.CODE_500, "系统错误");
                 }
             }
-            request.getSession().setAttribute("carbon", user);
+            HttpSession session = request.getSession();
+            session.setAttribute("carbon", user);
+            session.setMaxInactiveInterval(SESSION_TIMEOUT);
         }
         return user;
     }

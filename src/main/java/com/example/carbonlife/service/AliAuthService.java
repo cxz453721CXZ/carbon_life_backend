@@ -17,5 +17,5 @@ public interface AliAuthService {
     /**
      * 获取用户登录信息
      */
-    User getUserInfoBySession(String openId);
+    User getUserInfoBySession(String openId, HttpServletRequest request);
 }

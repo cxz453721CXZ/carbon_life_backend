@@ -8,9 +8,13 @@ import com.example.carbonlife.service.impl.AliAuthServiceImp;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpRequest;
+
+import static com.example.carbonlife.common.Constants.SESSION_TIMEOUT;
+import static com.example.carbonlife.common.Constants.userLoginState;
 
 @RestController
 @RequestMapping("/test")
@@ -28,6 +32,13 @@ public class AliAuthController {
         return auth;
     }
 
+    @GetMapping("/session")
+    public Result testSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        AlipayUserInfoShareResponse userInfo = (AlipayUserInfoShareResponse) session.getAttribute(userLoginState);
+        return selectUserByOpenId(userInfo.getOpenId());
+    }
+
 
     /**
      * 根据openId查询用户信息
@@ -42,8 +53,8 @@ public class AliAuthController {
      * 根据Session获取用户信息
      */
     @GetMapping("/queryUserInfo")
-    public Result queryUserInfo(@RequestParam String openId){
-        User user = aliAuthServiceImp.getUserInfoBySession(openId);
+    public Result queryUserInfo(@RequestParam String openId, HttpServletRequest request){
+        User user = aliAuthServiceImp.getUserInfoBySession(openId, request);
         return Result.success(user);
     }
 
