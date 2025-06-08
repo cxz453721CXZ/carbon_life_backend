@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://123.249.108.160:3306/carbon
-    username: carbon
-    password: carbon123456
+    url: jdbc:mysql://1.94.237.210:3306/carboner
+    username: carboner
+    password: CO2@carboner
     hikari:
       max-lifetime: 120000
 
