@@ -1,0 +1,42 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://123.249.108.160:3306/carbon
+    username: carbon
+    password: carbon123456
+    hikari:
+      max-lifetime: 120000
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 9090
+  servlet:
+    session:
+      timeout: 86400
+
+
+
+
+#支付宝相关
+alipay:
+  #支付宝开放平台
+  open:
+    appId: 2021004146667808
+    getway: https://openapi.alipay.com/gateway.do
+    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmBjDZ67mGU4F7Rto4WnhlDzKQXdzFruuHRgSDM1S64FBWivbAFCpSiUjUUbg6QF38eUllzvnNyFrXiCDJVWEChOzgmCdF937IRWesoF2beCqD1y0tztL4ewUxGjytAbXBigIn0vJqyRzIfUgQTJPGRkrEk1Ms5FuIX9WsNpdAgW2c54u9BrOpB0kdOYEXAhpTIc0GCSCnha9gJYibeTi7VKDPPKOf3wwYJWwPSfHo4VULJlrtZnVS1xQV1mSHQzNu6PJn/hqPMqhxgRZSa3PcyJkd1Qj9eWV67PpdakKgpV1oGKrX12zLS2Z7vn9pEQknoSMYjr8vGonFSCUGGj3sQIDAQAB
+    privateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxVkVigbwHdOsayyIq0pHpmkLI4ZwfQiAe6V6OC/W7VacoCI6tM0TPCEDiz1n/HYGVcF2bUkBW/IczqQwoEXwP8LMaEtb6jxmRHUsNDXpzH/h87yPcDzWPBEeKQQrBDkJH7tZtW/1ns4IZqr1zBhohtbhNgaLDvAHWN4Xmf9nWHKDzCtmWBu0Zq5hMCUEfcmCx1jO39uuK8XOJxbKbQ4miaYhqzvz6dhDy6tv8rG02LkVVFVG1OpFJRJxMxU5DkKql170sl7+flow6nalID9k2M1qFJ3E7u4zyYHiT4bfqKWZfkfGT8hsMwG0tu4DqHd2kc71C26CayiwE7T1zE+QTAgMBAAECggEAQ9C/++ms5BUcC0T/Le0Ui4bIX1WXhISfD/Mii6ObNyaMI80R8r4WZC290n6E5gB8m4863LjZjepIMcNFuNTm4pmjhCcMOwkaN9pB5x3uY7QoLG6vAep3CtgSG5a/7A/t3OBC89Mn1s5YxEP86s28lIOPlWQrwDpXYXoeJIVj4nKwMXZ8o45dy/9XpGwLE3/oGqI9U39ku8tdYXUWPS+fozcmRW9ZSvT4CYm8Y1roINVunqYxBeWJE5jWNuAjKQYqD0Ijd2nCKBqWjc1E8291cUyHWAo12Jd+qLMTik3kC2pBZ+KU3NLc2FHPiqmzXjFMOhlaAjSj6REDyBPuRPZS0QKBgQDvV6XGk37JJkI+tLsTu/u3MJ6tvms89bZ0xGBKw2KAcCZc1YxafZvk0cnrlmpt7hA6yqHWZBVlAdY6INByl4C5utxCvixWkrq8/w4vJjYb7kvIhA6jAckjsFWRUqNCV51mR2+RucLRJKKTmoFhCG7uGs2SH7V+z1xox0Ww3GxbxwKBgQC9reBdP+lkA3UUgF3PlOm0KdESFPRWzm58TQrIwduNbUZSVN7z2sidCYPBqpnjtGrxWcJ8PEK+pMYRcBrq5om1k5qiw28XjxvEXDqQqJknPXcpXAMR5oppvw1p6CMUlMALwguRUVoSNEp4D6EG21KxZdc9GWXEqQlntM0itu09VQKBgQCGpIP5xhfZCNDTfdCQNXxRfeSGUUz6qi/OWHrjFC9hmbW7G9ctQORmQS6afa+5z+cJa9zHQt5WSEY/xR3+mQQtd9VZJqrCuSCcGc/c7l4aMGApmUCyqtqAXT6F1jtJowhE9YLqM9pI1Zcv+gc2kwv0ntdukLAFepm9x/yIljfPGQKBgQCJiiWhOJDiZudlAFgGB/MXIyNpOyyaLYJMPAlP3dJ4UP6nAMfSh5jk1ltl+XExfkf1zqKKN6AmYZEGYAYEwzqkIe4FjDVoHeuCjWYiMz8rBxT7Nq87MbK4T0NIwn19lQdU/1Yn/5eSj7xYJu0a7bqezDwxH9N9sR0SyDXfsEmDKQKBgDeduDjeYWWagaaUqZabKYGMz+0bNExR08X+/hxt9v76LqzNpCgBz1IdOFuYjtWSUWLVkVvFJTdcVdmv/GHLMFdL93KyxMAIeROD2poz37HMhU4p0fWMX+APMw8qHAP6MCnLJ12vA76nO9lYOA/PvL47WUF//il5ZSMQu2KfA3D2
+
+hwyun:
+  obs:
+    accessKey: TEA5FAYCZDUSCEJP8NKX
+    securityKey: djX3WNrYjRDmp5v7rOXfa25e9CHj8OXKRzQJp6Ec
+    endPoint: obs.cn-north-4.myhuaweicloud.com
+    bucketName: carbon2
+
+wx:
+  mini:
+    appId: wx3f968a09e31d6bed
+    appSecret: 847bdda7c2b01e88d59948b9ba50ef8d
